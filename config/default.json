@@ -1,0 +1,3 @@
+{
+	"mongoURI": "mongodb+srv://Wave:Wave@codersnetwork-caizf.mongodb.net/test?retryWrites=true&w=majority"
+}
