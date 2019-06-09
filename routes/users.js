@@ -4,6 +4,8 @@ const { check, validationResult } = require('express-validator/check');
 const gravatar = require('gravatar');
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
+const config = require('config');
+const jwt = require('jsonwebtoken');
 
 /**
  * @route POST api/users
@@ -43,14 +45,15 @@ router.post(
 				avatar,
 				password
 			});
-			// encrypt password
+			// encrypt password & save user
 			const salt = await bcrypt.genSalt(10);
 			user.password = await bcrypt.hash(password, salt);
-			// save user and create token
 			await user.save();
-			res.status(200).json(req.body);
+			// generates token and returns it
+			const token = jwt.sign({ user: { id: user.id } }, config.get('mySecrecToken'), { expiresIn: 60 * 60 });
+			res.status(200).json({ token });
 		} catch (err) {
-			console.error(error);
+			console.error(err);
 			res.status(500).send('Server Error');
 		}
 	}

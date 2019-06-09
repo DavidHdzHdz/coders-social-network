@@ -1,3 +1,4 @@
 {
-	"mongoURI": "mongodb+srv://Wave:Wave@codersnetwork-caizf.mongodb.net/test?retryWrites=true&w=majority"
+	"mongoURI": "mongodb+srv://Wave:Wave@codersnetwork-caizf.mongodb.net/test?retryWrites=true&w=majority",
+	"mySecrecToken": "123qwerewq23####34434+`+ññlkçççççœæ€†®ƒ"
 }
