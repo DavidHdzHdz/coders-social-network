@@ -47,10 +47,10 @@ router.post(
 			if (!isPasswordsMatched) {
 				res.status(400).json({ errors: [ { msg: 'Invalid Email or Password' } ] });
 			}
-			const token = jwt.sign({ user: { id: user.id } }, config.get('mySecrecToken'), { expiresIn: 60 * 60 });
+			const token = jwt.sign({ user: { id: user.id } }, config.get('mySecrecToken'), { expiresIn: 60 * 60 * 5 });
 			res.status(200).json({ token });
 		} catch (err) {
-			console.error(err);
+			console.error(err.message);
 			res.status(500).send('Server Error');
 		}
 	}
