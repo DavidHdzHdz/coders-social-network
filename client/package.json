@@ -3,6 +3,9 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
+		"@fortawesome/fontawesome-svg-core": "^1.2.19",
+		"@fortawesome/free-solid-svg-icons": "^5.9.0",
+		"@fortawesome/react-fontawesome": "^0.1.4",
 		"axios": "^0.19.0",
 		"moment": "^2.24.0",
 		"react": "^16.8.6",
@@ -13,7 +16,8 @@
 		"react-scripts": "3.0.1",
 		"redux": "^4.0.1",
 		"redux-devtools-extension": "^2.13.8",
-		"redux-thunk": "^2.3.0"
+		"redux-thunk": "^2.3.0",
+		"uuid": "^3.3.2"
 	},
 	"scripts": {
 		"start": "react-scripts start",
@@ -25,8 +29,16 @@
 		"extends": "react-app"
 	},
 	"browserslist": {
-		"production": [ ">0.2%", "not dead", "not op_mini all" ],
-		"development": [ "last 1 chrome version", "last 1 firefox version", "last 1 safari version" ]
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
 	},
 	"proxy": "http://localhost:5000"
 }

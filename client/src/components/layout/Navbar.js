@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCode } from '@fortawesome/free-solid-svg-icons';
 
 const Navbar = () => {
 	return (
@@ -7,7 +9,7 @@ const Navbar = () => {
 			<nav className='navbar bg-dark'>
 				<h1>
 					<Link to='/'>
-						<i class='fas fa-code' /> CoderNetwork
+						<FontAwesomeIcon icon={faCode} /> CodersNetwork
 					</Link>
 				</h1>
 				<ul>
