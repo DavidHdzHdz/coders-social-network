@@ -6,16 +6,16 @@ import { Link } from 'react-router-dom';
 
 const Login = () => {
 	const [ formData, setFormData ] = useState({});
-	const handleChance = (event) => {
+	const handleChance = event => {
 		setFormData({ ...formData, [event.target.name]: event.target.value });
 	};
-	const handleSubmit = async (event) => {
+	const handleSubmit = async event => {
 		event.preventDefault();
 		const { email, password } = formData;
 		await axios
 			.post('http://localhost:5000/api/auth', { email, password })
-			.then((response) => console.log(response.data))
-			.catch((error) => console.log(error));
+			.then(response => console.log(response.data))
+			.catch(error => console.log(error.message));
 	};
 
 	return (

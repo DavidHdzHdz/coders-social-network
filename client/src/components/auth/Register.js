@@ -4,21 +4,22 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
+import { register } from '../../actions/auth';
 import { PropTypes } from 'prop-types';
 
-const Register = ({ setAlert }) => {
+const Register = ({ setAlert, register }) => {
 	const [ formData, setFormData ] = useState({});
-	const handleChance = (event) => {
+	const handleChance = event => {
 		setFormData({ ...formData, [event.target.name]: event.target.value });
 	};
-	const handleSubmit = (event) => {
+	const handleSubmit = event => {
 		event.preventDefault();
 		const { password, password2 } = formData;
 
 		if (password === password2) {
-			console.log('password is correct');
+			register({ ...formData });
 		} else {
-			setAlert('passwords are not equal', 'danger');
+			setAlert('passwords are not equals', 'danger');
 		}
 	};
 
@@ -68,7 +69,8 @@ const Register = ({ setAlert }) => {
 };
 
 Register.propTypes = {
-	setAlert: PropTypes.func.isRequired
+	setAlert: PropTypes.func.isRequired,
+	register: PropTypes.func.isRequired
 };
 
-export default connect(null, { setAlert })(Register);
+export default connect(null, { setAlert, register })(Register);

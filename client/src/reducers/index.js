@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
 import alerts from './alert';
-import register from './auth';
+import auth from './auth';
 
-export default combineReducers({ alerts, register });
+export default combineReducers({ alerts, auth });

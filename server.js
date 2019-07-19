@@ -10,7 +10,7 @@ app.use(express.json({ extended: false }));
 // cors headers
 app.use((_, res, next) => {
 	res.header('Access-Control-Allow-Origin', '*');
-	res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+	res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, x-auth-token');
 	next();
 });
 // root api menssage and routes
