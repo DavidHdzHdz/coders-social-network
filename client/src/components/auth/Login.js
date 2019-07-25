@@ -1,25 +1,24 @@
 import React, { Fragment, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { login } from '../../actions/auth';
+import { PropTypes } from 'prop-types';
 
-const Login = () => {
+const Login = ({ login, isAuthenticated }) => {
 	const [ formData, setFormData ] = useState({});
 	const handleChance = event => {
 		setFormData({ ...formData, [event.target.name]: event.target.value });
 	};
 	const handleSubmit = async event => {
 		event.preventDefault();
-		const { email, password } = formData;
-		await axios
-			.post('http://localhost:5000/api/auth', { email, password })
-			.then(response => console.log(response.data))
-			.catch(error => console.log(error.message));
+		login({ ...formData });
 	};
 
 	return (
 		<Fragment>
+			{isAuthenticated && <Redirect to='/dashboard' />}
 			<h1 className='large text-primary'>Sing In</h1>
 			<p className='lead'>
 				<FontAwesomeIcon icon={faUser} /> Sign Into Your Account
@@ -47,4 +46,12 @@ const Login = () => {
 	);
 };
 
-export default Login;
+Login.propTypes = {
+	isAuthenticated: PropTypes.bool.isRequired
+};
+
+const mapStateToProps = state => ({
+	isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, { login })(Login);
