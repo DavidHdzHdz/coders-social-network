@@ -11,7 +11,7 @@ const Login = ({ login, isAuthenticated }) => {
 	const handleChance = event => {
 		setFormData({ ...formData, [event.target.name]: event.target.value });
 	};
-	const handleSubmit = async event => {
+	const handleSubmit = event => {
 		event.preventDefault();
 		login({ ...formData });
 	};

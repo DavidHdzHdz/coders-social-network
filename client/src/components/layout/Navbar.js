@@ -1,9 +1,36 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCode } from '@fortawesome/free-solid-svg-icons';
+import { faCode, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { connect } from 'react-redux';
+import { logout } from '../../actions/auth';
+import { PropTypes } from 'prop-types';
 
-const Navbar = () => {
+const Navbar = ({ isAuthenticated, isLoading, logout }) => {
+	const logoutNavItem = (
+		<ul>
+			<li>
+				<a onClick={logout} href='#!'>
+					<FontAwesomeIcon icon={faSignOutAlt} /> Logout
+				</a>
+			</li>
+		</ul>
+	);
+
+	const authNavItems = (
+		<ul>
+			<li>
+				<Link to='/'>Developers</Link>
+			</li>
+			<li>
+				<Link to='/register'>Register</Link>
+			</li>
+			<li>
+				<Link to='/login'>Login</Link>
+			</li>
+		</ul>
+	);
+
 	return (
 		<div>
 			<nav className='navbar bg-dark'>
@@ -12,20 +39,20 @@ const Navbar = () => {
 						<FontAwesomeIcon icon={faCode} /> CodersNetwork
 					</Link>
 				</h1>
-				<ul>
-					<li>
-						<Link to='/'>Developers</Link>
-					</li>
-					<li>
-						<Link to='/register'>Register</Link>
-					</li>
-					<li>
-						<Link to='/login'>Login</Link>
-					</li>
-				</ul>
+				{!isLoading && isAuthenticated ? logoutNavItem : authNavItems}
 			</nav>
 		</div>
 	);
 };
 
-export default Navbar;
+Navbar.propTypes = {
+	isAuthenticated: PropTypes.bool.isRequired,
+	isLoading: PropTypes.bool.isRequired
+};
+
+const mapStateToProps = state => ({
+	isAuthenticated: state.auth.isAuthenticated,
+	isLoading: state.auth.isLoading
+});
+
+export default connect(mapStateToProps, { logout })(Navbar);
