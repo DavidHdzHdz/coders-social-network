@@ -2,6 +2,8 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
+// validate a react component
+import { isValidElementType } from 'react-is';
 
 const PrivateRoute = ({ component: Component, isAuthenticated, isLoading, ...rest }) => (
 	<Route
@@ -10,8 +12,15 @@ const PrivateRoute = ({ component: Component, isAuthenticated, isLoading, ...res
 	/>
 );
 
+// the first prop in propTypes is the way for validate a React Component
 PrivateRoute.propTypes = {
-	component: PropTypes.func.isRequired,
+	component: (props, propName) => {
+		if (props[propName] && !isValidElementType(props[propName])) {
+			return new Error(
+				`Invalid prop 'component' supplied to 'PrivateRoute': the prop is not a valid React component`
+			);
+		}
+	},
 	isAuthenticated: PropTypes.bool.isRequired,
 	isLoading: PropTypes.bool.isRequired
 };

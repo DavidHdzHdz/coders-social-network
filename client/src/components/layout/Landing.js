@@ -1,9 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
 
-const Landing = () => {
+const Landing = ({ isAuthenticated }) => {
 	return (
 		<section className='landing'>
+			{/* redirect to dashboard if user is authenticated */}
+			{isAuthenticated && <Redirect to='/dashboard' />}
 			<div className='dark-overlay'>
 				<div className='landing-inner'>
 					<h1 className='x-large'>Coders Social Network</h1>
@@ -24,4 +28,12 @@ const Landing = () => {
 	);
 };
 
-export default Landing;
+Landing.propTypes = {
+	isAuthenticated: PropTypes.bool.isRequired
+};
+
+const mapStateToProps = state => ({
+	isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps)(Landing);

@@ -1,14 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCode, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCode, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/auth';
 import { PropTypes } from 'prop-types';
 
 const Navbar = ({ isAuthenticated, isLoading, logout }) => {
-	const logoutNavItem = (
+	const loggedNavItems = (
 		<ul>
+			<li>
+				<Link to='/dashboard'>
+					<FontAwesomeIcon icon={faUser} /> Dashboard
+				</Link>
+			</li>
 			<li>
 				<a onClick={logout} href='#!'>
 					<FontAwesomeIcon icon={faSignOutAlt} /> Logout
@@ -39,7 +44,7 @@ const Navbar = ({ isAuthenticated, isLoading, logout }) => {
 						<FontAwesomeIcon icon={faCode} /> CodersNetwork
 					</Link>
 				</h1>
-				{!isLoading && isAuthenticated ? logoutNavItem : authNavItems}
+				{!isLoading && isAuthenticated ? loggedNavItems : authNavItems}
 			</nav>
 		</div>
 	);
