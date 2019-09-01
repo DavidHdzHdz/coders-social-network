@@ -4,6 +4,7 @@ const auth = require('../middleware/auth');
 const Profile = require('../models/Profile');
 const { check, validationResult } = require('express-validator/check');
 const User = require('../models/User');
+const Post = require('../models/Post');
 const ObjectId = require('mongoose').Types.ObjectId;
 const request = require('request');
 const config = require('config');
@@ -132,6 +133,7 @@ router.get('/:user_id', async (req, res) => {
  */
 router.delete('/', auth, async (req, res) => {
 	try {
+		await Post.deleteMany({ user: req.user.id });
 		await Profile.findOneAndDelete({ user: req.user.id });
 		await User.findOneAndDelete({ _id: req.user.id });
 		res.status(200).json({ message: 'Account Deleted' });
@@ -194,7 +196,7 @@ router.delete('/experience/:experience_id', auth, async (req, res) => {
 		if (!profile) {
 			return res.status(404).json({ errors: [ { msg: 'Profile Not Found' } ] });
 		}
-		profile.experience = profile.experience.filter((expItem) => expItem.id !== req.params.experience_id);
+		profile.experience = profile.experience.filter(expItem => expItem.id !== req.params.experience_id);
 		await profile.save();
 		res.status(200).json(profile);
 	} catch (err) {
@@ -257,7 +259,7 @@ router.delete('/education/:education_id', auth, async (req, res) => {
 		if (!profile) {
 			return res.status(404).json({ errors: [ { msg: 'Profile Not Found' } ] });
 		}
-		profile.education = profile.education.filter((eduItem) => eduItem.id !== req.params.education_id);
+		profile.education = profile.education.filter(eduItem => eduItem.id !== req.params.education_id);
 		await profile.save();
 		res.status(200).json(profile);
 	} catch (err) {

@@ -10,6 +10,9 @@ const Navbar = ({ isAuthenticated, isLoading, logout }) => {
 	const loggedNavItems = (
 		<ul>
 			<li>
+				<Link to='/profiles'>Developers</Link>
+			</li>
+			<li>
 				<Link to='/dashboard'>
 					<FontAwesomeIcon icon={faUser} /> Dashboard
 				</Link>
@@ -25,7 +28,7 @@ const Navbar = ({ isAuthenticated, isLoading, logout }) => {
 	const authNavItems = (
 		<ul>
 			<li>
-				<Link to='/'>Developers</Link>
+				<Link to='/profiles'>Developers</Link>
 			</li>
 			<li>
 				<Link to='/register'>Register</Link>
