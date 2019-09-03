@@ -6,13 +6,16 @@ import {
 	GET_PROFILES,
 	PROFILES_ERROR,
 	LOADING_PROFILE,
-	CLEAR_PROFILE
+	CLEAR_PROFILE,
+	GET_REPOS,
+	REPOS_ERROR
 } from '../actions/types';
 
 const initialState = {
 	profile: null,
 	profiles: [],
 	repos: [],
+	reposError: false,
 	loading: true,
 	error: {}
 };
@@ -29,11 +32,15 @@ export default function(state = initialState, action) {
 		case PROFILE_ERROR:
 			return { ...state, profile: null, error: payload, loading: false };
 		case CLEAR_PROFILE:
-			return { ...state, profile: null };
+			return { ...state, profile: null, profiles: [], repos: [], reposError: false, error: {} };
 		case GET_PROFILES:
-			return { ...state, profiles: payload, loading: false };
+			return { ...state, profiles: payload, error: {}, loading: false };
 		case PROFILES_ERROR:
-			return { ...state, profiles: [], loading: false };
+			return { ...state, profiles: [], error: payload, loading: false };
+		case GET_REPOS:
+			return { ...state, repos: payload, reposError: false };
+		case REPOS_ERROR:
+			return { ...state, repos: [], reposError: true };
 		case LOGOUT:
 			return { ...initialState };
 		default:

@@ -19,3 +19,10 @@ export const PROFILE_ERROR = 'PROFILE_ERROR';
 export const CLEAR_PROFILE = 'CLEAR_PROFILE';
 export const GET_PROFILES = 'GET_PROFILES';
 export const PROFILES_ERROR = 'PROFILES_ERROR';
+export const GET_REPOS = 'GET_REPOS';
+export const REPOS_ERROR = 'REPOS_ERROR';
+
+// post actions
+export const LOADING_POST = 'LOADING_POST';
+export const GET_POSTS = 'GET_POST';
+export const POSTS_ERROR = 'POSTS_ERROR';

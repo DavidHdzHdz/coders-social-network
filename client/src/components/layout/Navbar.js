@@ -10,6 +10,9 @@ const Navbar = ({ isAuthenticated, isLoading, logout }) => {
 	const loggedNavItems = (
 		<ul>
 			<li>
+				<Link to='/posts'>Posts</Link>
+			</li>
+			<li>
 				<Link to='/profiles'>Developers</Link>
 			</li>
 			<li>

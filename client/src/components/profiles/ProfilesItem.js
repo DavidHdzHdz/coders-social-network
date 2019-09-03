@@ -12,16 +12,16 @@ const ProfilesItem = ({ profile }) => {
 			<div>
 				<h2>{profile.user.name}</h2>
 				<p>
-					{profile.status} at {profile.company}
+					{profile.status} {profile.company && `at ${profile.company}`}
 				</p>
-				<p>{profile.lacation}</p>
+				<p>{profile.lacation && profile.lacation}</p>
 				<Link to={`/profile/${profile.user._id}`} className='btn btn-primary'>
 					View Profile
 				</Link>
 			</div>
 
 			<ul>
-				{profile.skills.map((skill, index) => (
+				{profile.skills.slice(0, 5).map((skill, index) => (
 					<li className='text-primary' key={index}>
 						<FontAwesomeIcon icon={faCheck} /> {skill}
 					</li>

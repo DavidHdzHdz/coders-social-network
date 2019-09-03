@@ -8,7 +8,9 @@ import {
 	GET_PROFILES,
 	PROFILES_ERROR,
 	LOADING_PROFILE,
-	CLEAR_PROFILE
+	CLEAR_PROFILE,
+	GET_REPOS,
+	REPOS_ERROR
 } from './types';
 
 /**
@@ -123,7 +125,7 @@ export const getProfiles = _ => async dispatch => {
 		const { data: profiles } = await axios.get('api/profile');
 		dispatch({ type: GET_PROFILES, payload: profiles });
 	} catch (err) {
-		dispatch({ type: PROFILES_ERROR });
+		dispatch({ type: PROFILES_ERROR, payload: { msg: err.response.statusText, status: err.response.status } });
 		dispatch(setAlert(`${err.response.statusText}, try later`));
 	}
 };
@@ -135,5 +137,15 @@ export const getProfileById = id => async dispatch => {
 		dispatch({ type: UPDATE_PROFILE, payload: profile });
 	} catch (err) {
 		dispatch(setAlert(`${err.response.statusText}, try later`));
+		dispatch({ type: PROFILE_ERROR, payload: { msg: err.response.statusText, status: err.response.status } });
+	}
+};
+
+export const getGithubRepos = githubUsername => async dispatch => {
+	try {
+		const { data: repos } = await axios.get(`../api/profile/github/${githubUsername}`);
+		dispatch({ type: GET_REPOS, payload: repos });
+	} catch (err) {
+		dispatch({ type: REPOS_ERROR });
 	}
 };
