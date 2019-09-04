@@ -126,7 +126,7 @@ export const getProfiles = _ => async dispatch => {
 		dispatch({ type: GET_PROFILES, payload: profiles });
 	} catch (err) {
 		dispatch({ type: PROFILES_ERROR, payload: { msg: err.response.statusText, status: err.response.status } });
-		dispatch(setAlert(`${err.response.statusText}, try later`));
+		dispatch(setAlert(`${err.response.statusText}, try later`, 'danger'));
 	}
 };
 
@@ -136,7 +136,7 @@ export const getProfileById = id => async dispatch => {
 		const { data: profile } = await axios.get(`../api/profile/${id}`);
 		dispatch({ type: UPDATE_PROFILE, payload: profile });
 	} catch (err) {
-		dispatch(setAlert(`${err.response.statusText}, try later`));
+		dispatch(setAlert(`${err.response.statusText}, try later`, 'danger'));
 		dispatch({ type: PROFILE_ERROR, payload: { msg: err.response.statusText, status: err.response.status } });
 	}
 };

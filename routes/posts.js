@@ -118,7 +118,7 @@ router.put('/like/:post_id', auth, async (req, res) => {
 		if (!post) {
 			return res.status(400).json({ errors: [ { msg: 'Post Not Found' } ] });
 		}
-		if (post.likes.filter((like) => like.user.toString() === userId).length > 0) {
+		if (post.likes.filter(like => like.user.toString() === userId).length > 0) {
 			return res.status(400).json({ errors: [ { msg: 'You have already liked this post before' } ] });
 		}
 		post.likes.unshift({ user: userId });
@@ -148,10 +148,10 @@ router.put('/unlike/:post_id', auth, async (req, res) => {
 		if (!post) {
 			return res.status(400).json({ errors: [ { msg: 'Post Not Found' } ] });
 		}
-		if (post.likes.filter((like) => like.user.toString() === userId).length == 0) {
+		if (post.likes.filter(like => like.user.toString() === userId).length == 0) {
 			return res.status(400).json({ errors: [ { msg: 'Post has not yet been liked for you' } ] });
 		}
-		post.likes = post.likes.filter((like) => like.user.toString() !== userId);
+		post.likes = post.likes.filter(like => like.user.toString() !== userId);
 		await post.save();
 		res.status(200).json(post.likes);
 	} catch (err) {
@@ -164,7 +164,7 @@ router.put('/unlike/:post_id', auth, async (req, res) => {
 });
 
 /**
- * @route POST a/comment/post_id
+ * @route POST api/posts/comment/post_id
  * @description post new comment to a post by its id
  * @access private
  */
@@ -217,13 +217,13 @@ router.delete('/comment/:post_id/:comment_id', auth, async (req, res) => {
 		if (!post) {
 			return res.status(400).json({ errors: [ { msg: 'Post Not Found' } ] });
 		}
-		const comment = post.comments.find((comment) => comment.id.toString() === commentId);
+		const comment = post.comments.find(comment => comment.id.toString() === commentId);
 		if (comment === undefined) {
 			return res.status(400).json({ errors: [ { msg: 'This comment do not exist for this post' } ] });
 		}
 		// only the user that comments this post or user owner of post can delete it
 		if (userId === comment.user.toString() || userId === post.user.toString()) {
-			post.comments = post.comments.filter((comment) => comment.id.toString() !== commentId);
+			post.comments = post.comments.filter(comment => comment.id.toString() !== commentId);
 			await post.save();
 			return res.status(200).json(post.comments);
 		} else {

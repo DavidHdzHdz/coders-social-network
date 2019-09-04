@@ -6,6 +6,7 @@ import { getPosts } from '../../actions/post';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import PostsItem from './PostsItem';
+import PostForm from './PostForm';
 
 const PostsList = ({ post: { posts, loading }, getPosts }) => {
 	useEffect(
@@ -24,7 +25,10 @@ const PostsList = ({ post: { posts, loading }, getPosts }) => {
 					<p className='lead'>
 						<FontAwesomeIcon icon={faUser} /> Welcome to the community!
 					</p>
-					<div className='posts'>{posts.map(post => <PostsItem key={post._id} post={post} />)}</div>
+					<PostForm />
+					<div className='posts'>
+						{posts.map(post => <PostsItem key={post._id} post={post} showActions={true} />)}
+					</div>
 				</Fragment>
 			)}
 		</Fragment>
