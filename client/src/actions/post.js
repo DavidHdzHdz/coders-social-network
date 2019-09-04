@@ -8,7 +8,8 @@ import {
 	ADD_POST,
 	GET_POST,
 	POST_ERROR,
-	ADD_COMMENT
+	ADD_COMMENT,
+	REMOVE_COMMENT
 } from './types';
 import { setAlert } from './alert';
 
@@ -91,9 +92,25 @@ export const getPostById = postId => async dispatch => {
 export const addComment = (postId, formData) => async dispatch => {
 	const config = { headers: { 'Content-Type': 'application/json' } };
 	try {
-		const { data: comment } = await axios.post(`../api/posts/comment/${postId}`, formData, config);
-		dispatch({ type: ADD_COMMENT, payload: comment });
+		const { data: comments } = await axios.post(`../api/posts/comment/${postId}`, formData, config);
+		dispatch({ type: ADD_COMMENT, payload: comments });
 		dispatch(setAlert('Comment added successfull', 'success'));
+	} catch (err) {
+		if (err.response) {
+			dispatch(setAlert(`${err.response.statusText}, try later`, 'danger'));
+		} else {
+			console.log(err);
+		}
+	}
+};
+
+// remove comment
+export const removeComment = (postId, commentId) => async dispatch => {
+	try {
+		// comment/:post_id/:comment_id
+		const { data: comments } = await axios.delete(`../api/posts/comment/${postId}/${commentId}`);
+		dispatch(setAlert('Comment deleted successfull'));
+		dispatch({ type: REMOVE_COMMENT, payload: comments });
 	} catch (err) {
 		if (err.response) {
 			dispatch(setAlert(`${err.response.statusText}, try later`, 'danger'));

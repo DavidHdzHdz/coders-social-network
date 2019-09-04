@@ -7,7 +7,8 @@ import {
 	ADD_POST,
 	GET_POST,
 	POST_ERROR,
-	ADD_COMMENT
+	ADD_COMMENT,
+	REMOVE_COMMENT
 } from '../actions/types';
 
 const initialState = {
@@ -41,7 +42,9 @@ export default function(state = initialState, action) {
 		case POST_ERROR:
 			return { ...state, post: null, error: payload, loading: false };
 		case ADD_COMMENT:
-			return { ...state, post: { ...state.post, comments: [ payload, ...state.post.comments ] } };
+			return { ...state, post: { ...state.post, comments: payload } };
+		case REMOVE_COMMENT:
+			return { ...state, post: { ...state.post, comments: payload } };
 		default:
 			return state;
 	}

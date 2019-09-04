@@ -185,7 +185,7 @@ router.post('/comment/:post_id', auth, [ check('text', 'test is required').not()
 		if (!post || !user) {
 			return res.status(400).json({ errors: [ { msg: 'Post or User Not Found' } ] });
 		}
-		post.comments.unshift({
+		post.comments.push({
 			user: userId,
 			text,
 			name: user.name,

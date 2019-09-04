@@ -7,7 +7,6 @@ const PostForm = ({ addPost }) => {
 	const [ text, setTextData ] = useState('');
 	const handleChange = event => {
 		setTextData(event.target.value);
-		console.log(text);
 	};
 	const handleSubmit = event => {
 		event.preventDefault();
